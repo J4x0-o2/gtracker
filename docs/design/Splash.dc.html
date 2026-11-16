@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Splash screen</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#070B12}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #070B12; color: #E6EDF7; font-family: Inter, system-ui, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 0 40px 64px">
+  <div style="height: 120px"></div>
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 28px">
+    <img src="gtracker-icon.png" width="220" height="220" alt="GTracker" style="display: block; filter: drop-shadow(0 0 22px rgba(56,182,255,0.55))">
+  </div>
+  <div style="width: 120px; height: 4px; border-radius: 999px; background: #131C29; overflow: hidden">
+    <div style="width: 45%; height: 4px; border-radius: 999px; background: #38B6FF; box-shadow: 0 0 10px #38B6FF"></div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
