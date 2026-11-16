@@ -147,6 +147,11 @@ function setup() {
   Logger.log('TOKEN: ' + token);
 
   var ss = SpreadsheetApp.getActiveSpreadsheet();
+  // doPost writes dates at local midnight of the script time zone; both must match or days shift.
+  if (ss.getSpreadsheetTimeZone() !== Session.getScriptTimeZone()) {
+    Logger.log('WARNING: spreadsheet time zone ' + ss.getSpreadsheetTimeZone() + ' differs from script time zone ' +
+      Session.getScriptTimeZone() + '. Set File > Settings > Time zone in the Sheet to match.');
+  }
   var sync = ss.getSheetByName(SYNC);
   if (!sync) createSync_(ss);
   else sync.hideSheet();
