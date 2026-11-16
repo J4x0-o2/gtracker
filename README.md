@@ -5,7 +5,7 @@ Google Sheet (`GTracker - Registro Gym`), keeping the sheet's existing format. I
 exercise (never 3 in a row from the same muscle category), shows last session's marks as
 placeholders, and works without signal by queueing entries on the phone.
 
-Version **1.0.0** · UI in Spanish, code in English.
+Version **1.1.0** · UI in Spanish, code in English.
 
 ## Architecture
 
@@ -22,7 +22,7 @@ Google Sheet: Registro | Ejercicios | (_sync, hidden)
 - `src/lib/` pure, tested logic: ordering/blocking (`plan.ts`), categories, set parsing and 1RM
   (`sets.ts`), session state (`session.ts`), API client (`api.ts`), offline queue on IndexedDB
   (`queue.ts`), config (`config.ts`).
-- `src/ui/` Preact screens: splash, setup, main, exercise, swap sheet, queue, summary.
+- `src/ui/` Preact screens: splash, setup, home, main, exercise, swap sheet, queue, summary.
 - `apps-script/` backend. `lib.js` is pure (unit tested from Vitest); `Code.js` holds the Apps
   Script entry points.
 - `docs/design/` approved reference designs. `odd/tasks/gtracker-v1.md` is the feature document.
@@ -76,6 +76,13 @@ The build uses `base: './'`, so it works from a repository subpath. Publish the 
 `dist/` (for example with a GitHub Actions Pages workflow running `npm ci && npm run build`).
 Navigation is state-based, so no server rewrites are needed. Note that the token lives in each
 phone's `localStorage`, not in the repository.
+
+## Novedades en 1.1.0
+
+- Pantalla de inicio antes de la lista: muestra la rutina de hoy, los primeros ejercicios sugeridos
+  con su última marca, el resumen del último entreno y el botón "Empezar entreno" (o "Continuar
+  entreno · n/total" si ya registraste algo hoy).
+- La lista de la rutina tiene un botón para volver al inicio.
 
 ## Novedades en 1.0.0
 
