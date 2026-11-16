@@ -3,3 +3,4 @@ dist
 .clasp.json
 *.local
 .DS_Store
+odd/
