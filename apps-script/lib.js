@@ -41,7 +41,10 @@ function computeState(registroRows, catalogRows, todayIso, tz) {
     if (isBlank(name) || isBlank(r[0])) continue;
     var date = toIsoDate(r[0], tz);
     var set = { weight: Number(r[4]), reps: Number(r[6]), rir: Number(r[7]) };
-    var orm = Number(r[8]);
+    // Prefer the sheet's 1RM formula value; compute it when the cell is still empty.
+    var orm = isBlank(r[8])
+      ? Math.round(set.weight * (1 + (set.reps + (set.rir || 0)) / 30) * 10) / 10
+      : Number(r[8]);
 
     if (!last || date >= last.date) last = { date: date, routine: String(r[1]) };
 

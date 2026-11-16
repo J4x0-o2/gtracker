@@ -55,6 +55,14 @@ describe('computeState', () => {
   });
 });
 
+describe('computeState best1rm fallback', () => {
+  it('computes the 1RM from weight, reps and RIR when column I is empty', () => {
+    const rows = [['2026-11-16', 'A', 'Banca', null, 50, null, 6, 1, null, null]];
+    const st = lib.computeState(rows, [['Banca', 'Pecho', 'kg', 'A']], '2026-11-16');
+    expect(st.history['Banca'].best1rm).toBe(61.7);
+  });
+});
+
 describe('dates', () => {
   it('parses iso dates', () => {
     expect(lib.parseIsoDate('2026-11-05')).toEqual({ y: 2026, m: 11, d: 5 });
