@@ -43,10 +43,18 @@ describe('screens', () => {
     let session = resolveSession(null, state);
     session = markDone(session, 'Banca', [{ weight: 42, reps: 8, rir: 1 }], '', 50);
     render(<Summary state={state} session={session} pending={0} onDone={noop} />, root);
-    expect(root.textContent).toContain('Rutina A completada');
+    expect(root.textContent).toContain('Entreno terminado · 1 de 10');
     expect(root.textContent).toContain('Todo enviado al Sheet');
     expect(root.textContent).toContain('RÉCORDS DE HOY');
     expect(root.textContent).toContain('PRÓXIMO ENTRENO · RUTINA B');
     expect(root.textContent).toContain('+ 6 más');
+  });
+
+  it('Summary title says the routine is complete only when every planned exercise is done', () => {
+    const root = document.createElement('div');
+    let session = resolveSession(null, state);
+    for (const n of session.plan) session = markDone(session, n, [{ weight: 10, reps: 8, rir: 1 }], '', undefined);
+    render(<Summary state={state} session={session} pending={0} onDone={noop} />, root);
+    expect(root.textContent).toContain('Rutina A completada');
   });
 });

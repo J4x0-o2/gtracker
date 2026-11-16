@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 import { ApiError, fetchState, loadCachedState, postEntries } from './lib/api';
 import { getConfig, isConfigured } from './lib/config';
-import { alternativesFor } from './lib/plan';
+import { alternativesFor, isBlocked } from './lib/plan';
 import { enqueue, flush, listQueue, startAutoFlush } from './lib/queue';
 import {
   loadSession, markDone, resolveSession, saveSession, swapExercise, toEntry, type Session,
@@ -138,10 +138,15 @@ export function App() {
     if (!ex) {
       body = <Splash />;
     } else {
-      const idx = session.plan.indexOf(current);
+      // Position = how many exercises are already done today, plus this one.
+      const idx = session.done.filter((d) => d.name !== current).length;
       const alternatives = alternativesFor(ex, state.exercises, session.plan);
-      const others = state.exercises.filter((e) =>
-        session.plan.includes(e.name) && e.name !== current && !session.done.some((d) => d.name === e.name));
+      const byName = (n: string) => state.exercises.find((e) => e.name === n);
+      const doneSeq = session.done.map((d) => byName(d.name)).filter((e): e is NonNullable<typeof e> => !!e);
+      const remaining = state.exercises.filter((e) =>
+        session.plan.includes(e.name) && !session.done.some((d) => d.name === e.name));
+      // Jump targets skip exercises the two-in-a-row rule blocks right now.
+      const others = remaining.filter((e) => e.name !== current && !isBlocked(e, doneSeq, remaining));
       body = (
         <>
           <Exercise key={current} exercise={ex} routine={session.routine} index={idx + 1} total={session.plan.length}

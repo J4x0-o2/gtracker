@@ -22,7 +22,11 @@ export function Summary({ state, session, pending, onDone }: Props) {
     <div class="screen" style={{ paddingTop: 28 }}>
       <div class="center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
         <span class="check-ring"><Check size={30} color="#38B6FF" /></span>
-        <h1 style={{ fontSize: 30 }}>Rutina {session.routine} completada</h1>
+        <h1 style={{ fontSize: 30 }}>
+          {session.plan.every((n) => session.done.some((d) => d.name === n))
+            ? `Rutina ${session.routine} completada`
+            : `Entreno terminado · ${session.done.length} de ${session.plan.length}`}
+        </h1>
         <span class="pill" style={{ border: 0, background: 'none' }}>
           <span class={pending ? 'dot amber' : 'dot'} />
           {pending ? `${pending} por enviar al Sheet` : 'Todo enviado al Sheet'}

@@ -91,6 +91,8 @@ h1, h2 { margin: 0; font-family: var(--head); }
 .sets { display: flex; flex-direction: column; gap: 12px; }
 .set { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 18px; background: var(--card); border: 1px solid var(--border); }
 .set-head { display: flex; align-items: center; justify-content: space-between; min-height: 32px; }
+.remove-set { width: 40px; height: 40px; margin: -4px 0; display: flex; align-items: center; justify-content: center; border-radius: 10px; border: none; background: none; color: var(--muted); }
+.remove-set svg { width: 18px; height: 18px; }
 .set-label { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--neon); }
 .fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .field { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--muted); }

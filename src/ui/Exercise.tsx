@@ -76,14 +76,14 @@ export function Exercise({ exercise, routine, index, total, history, saving, onB
         {rows.map((_, i) => (
           <div class="set" key={i}>
             <div class="set-head">
-              <span class="set-label">SERIE {i + 1}</span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                {hint(i) && <span class="hint">Última: {hint(i).weight} × {hint(i).reps} · {hint(i).rir}</span>}
+              <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span class="set-label">SERIE {i + 1}</span>
                 {i > 0 && i === rows.length - 1 && (
-                  <button class="icon-btn" style={{ width: 40, height: 40 }} aria-label="Quitar serie"
+                  <button class="remove-set" aria-label="Quitar serie"
                     onClick={() => setRows((rs) => rs.slice(0, -1))}><Close /></button>
                 )}
               </span>
+              {hint(i) && <span class="hint">Última: {hint(i).weight} × {hint(i).reps} · {hint(i).rir}</span>}
             </div>
             <div class="fields">
               {field(i, 'weight', 'Peso', 'decimal')}
