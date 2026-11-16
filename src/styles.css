@@ -136,3 +136,14 @@ input, textarea { font: inherit; }
 .form { display: flex; flex-direction: column; gap: 14px; }
 .form label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); }
 .ok { font-size: 13px; color: var(--neon-soft); }
+
+/* Home */
+.hero { position: relative; height: 236px; flex-shrink: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; padding: 18px; border-radius: 22px; background: #0b1220; border: 1px solid var(--border); overflow: hidden; }
+.hero img { position: absolute; right: -28px; top: -6px; width: 230px; height: 230px; opacity: 0.9; filter: drop-shadow(0 0 16px rgba(56, 182, 255, 0.45)); }
+.hero-fade { position: absolute; inset: 0; background: linear-gradient(90deg, #0b1220 34%, rgba(11, 18, 32, 0.55) 62%, rgba(11, 18, 32, 0) 100%); }
+.hero > .eyebrow, .hero > h1, .hero > span { position: relative; }
+.hero-title { font-size: 44px; }
+.hero-sub { font-size: 14px; color: var(--text-2); }
+.last-card { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; border: 1px solid var(--border); }
+.last-ico { width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid var(--border-soft); }
+.btn.start { min-height: 60px; border-radius: 18px; font-size: 17px; box-shadow: 0 0 28px rgba(56, 182, 255, 0.55); flex-shrink: 0; }

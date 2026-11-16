@@ -3,19 +3,20 @@ import { formatDateEs, formatLast } from '../lib/format';
 import { isBlocked, suggestOrder } from '../lib/plan';
 import type { Session } from '../lib/session';
 import type { AppState, Exercise } from '../lib/types';
-import { Arrow, Check, Gear, Lock, NoSignal } from './Icons';
+import { Arrow, Back, Check, Gear, Lock, NoSignal } from './Icons';
 
 interface Props {
   state: AppState;
   session: Session;
   pending: number;
   onOpen: (name: string) => void;
+  onBack: () => void;
   onQueue: () => void;
   onSettings: () => void;
   onFinish: () => void;
 }
 
-export function Main({ state, session, pending, onOpen, onQueue, onSettings, onFinish }: Props) {
+export function Main({ state, session, pending, onOpen, onBack, onQueue, onSettings, onFinish }: Props) {
   const byName = new Map(state.exercises.map((e) => [e.name, e]));
   const planItems = session.plan.map((n) => byName.get(n)).filter((e): e is Exercise => !!e);
   const doneNames = session.done.map((d) => d.name);
@@ -31,7 +32,10 @@ export function Main({ state, session, pending, onOpen, onQueue, onSettings, onF
   return (
     <div class="screen">
       <div class="topbar">
-        <span class="date">{formatDateEs(state.today)}</span>
+        <span style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+          <button class="icon-btn" aria-label="Volver al inicio" onClick={onBack}><Back /></button>
+          <span class="date">{formatDateEs(state.today)}</span>
+        </span>
         <span style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           {pending > 0 ? (
             <button class="pill warn" onClick={onQueue}>

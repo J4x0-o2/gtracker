@@ -8,6 +8,7 @@ import {
 } from './lib/session';
 import type { AppState, Entry, SetData } from './lib/types';
 import { Exercise } from './ui/Exercise';
+import { Home } from './ui/Home';
 import { Main } from './ui/Main';
 import { Queue } from './ui/Queue';
 import { Setup } from './ui/Setup';
@@ -15,7 +16,7 @@ import { Splash } from './ui/Splash';
 import { Summary } from './ui/Summary';
 import { SwapSheet } from './ui/SwapSheet';
 
-type Screen = 'splash' | 'setup' | 'main' | 'exercise' | 'queue' | 'summary';
+type Screen = 'splash' | 'setup' | 'home' | 'main' | 'exercise' | 'queue' | 'summary';
 
 export function App() {
   const [screen, setScreen] = useState<Screen>(isConfigured() ? 'splash' : 'setup');
@@ -71,7 +72,7 @@ export function App() {
     setSession(sess);
     setNotice('');
     await refreshQueue();
-    setScreen('main');
+    setScreen('home');
     void flushNow();
   }, [flushNow, refreshQueue]);
 
@@ -121,7 +122,7 @@ export function App() {
 
   let body;
   if (screen === 'setup') {
-    body = <Setup notice={notice} onSaved={() => void start()} onCancel={state ? () => setScreen('main') : undefined} />;
+    body = <Setup notice={notice} onSaved={() => void start()} onCancel={state ? () => setScreen('home') : undefined} />;
   } else if (!state || !session || screen === 'splash') {
     body = <Splash />;
   } else if (screen === 'queue') {
@@ -132,7 +133,7 @@ export function App() {
         onClose={() => setScreen('main')} />
     );
   } else if (screen === 'summary') {
-    body = <Summary state={state} session={session} pending={queue.length} onDone={() => setScreen('main')} />;
+    body = <Summary state={state} session={session} pending={queue.length} onDone={() => setScreen('home')} />;
   } else if (screen === 'exercise' && current) {
     const ex = state.exercises.find((e) => e.name === current);
     if (!ex) {
@@ -162,9 +163,15 @@ export function App() {
         </>
       );
     }
+  } else if (screen === 'home') {
+    body = (
+      <Home state={state} session={session} pending={queue.length} onStart={() => setScreen('main')}
+        onQueue={() => setScreen('queue')} onSettings={() => setScreen('setup')} />
+    );
   } else {
     body = (
       <Main state={state} session={session} pending={queue.length} onOpen={open}
+        onBack={() => setScreen('home')}
         onQueue={() => setScreen('queue')} onSettings={() => setScreen('setup')}
         onFinish={() => setScreen('summary')} />
     );

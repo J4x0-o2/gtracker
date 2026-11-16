@@ -41,3 +41,6 @@ export const Download = ({ size = 20, color = '#FFB547' }: P) => (
 export const Trend = ({ size = 20, color = '#38B6FF' }: P) => (
   <svg {...base(size, color)}><path d="M4 17l6-6 4 4 6-8" /><path d="M14 7h6v6" /></svg>
 );
+export const Calendar = ({ size = 18, color = '#8A9AB2' }: P) => (
+  <svg {...base(size, color)}><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M16 3v4M8 3v4M3 11h18" /></svg>
+);
